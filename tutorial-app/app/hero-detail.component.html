@@ -1,10 +1,29 @@
-<div *ngIf="hero">
-  <h2>{{hero.name}} details!</h2>
-  <div><label>id: </label>{{hero.id}}</div>
-  <div>
-      <label>name: </label>
-      <input [(ngModel)]="hero.name" placeholder="name"/>
-      <button (click)="save()">Save</button>
-  </div>
-  <button (click)="goBack()">Back</button>
+<div class="container">
+	<h1>Hero Form</h1>
+	<div>
+		<form  *ngIf="hero" (ngSubmit)="save()" #heroForm="ngForm">
+
+			<div class="form-group">
+			  <p>
+			    <label class="form-group" for="hero-id">ID</label>
+			    {{hero.id}}
+			  </p>
+		  </div>
+
+	    <div class="form-group">
+	      <label for="hero-name">Name</label>
+	      <input type="text" class="form-control" id="hero-name" 
+	          name="hero-name" [(ngModel)]="hero.name" 
+	          required #heroName="ngModel">
+	      <div [hidden]="heroName.valid || heroName.pristine" 
+	          class="alert alert-danger">
+	          A hero name is required.
+	      </div>
+	    </div>
+
+	    <button type="submit" class="btn btn-default" [disabled]="!heroForm.form.valid">Submit</button>
+	    <button class="btn btn-default" (click)="goBack()">Back</button>
+
+	   </form>
+	</div>
 </div>
